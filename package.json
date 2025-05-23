@@ -1,0 +1,46 @@
+{
+  "name": "taskmanagerapp",
+  "license": "0BSD",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~4.0.1",
+    "@react-native-async-storage/async-storage": "^2.1.2",
+    "@react-native-community/datetimepicker": "8.2.0",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/bottom-tabs": "^7.3.3",
+    "@react-navigation/native": "^7.0.19",
+    "@react-navigation/stack": "^7.2.3",
+    "axios": "^1.8.3",
+    "expo": "~52.0.38",
+    "expo-status-bar": "~2.0.1",
+    "lodash.debounce": "^4.0.8",
+    "moment": "^2.30.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.7",
+    "react-native-calendars": "^1.1310.0",
+    "react-native-elements": "^3.4.3",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-localize": "^3.4.1",
+    "react-native-modal-datetime-picker": "^18.0.0",
+    "react-native-paper": "^5.13.1",
+    "react-native-paper-dates": "^0.22.40",
+    "react-native-reanimated": "^3.17.1",
+    "react-native-safe-area-context": "^4.12.0",
+    "react-native-screens": "~4.4.0",
+    "react-native-svg": "^15.11.2",
+    "react-native-vector-icons": "^10.2.0",
+    "react-native-web": "~0.19.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}

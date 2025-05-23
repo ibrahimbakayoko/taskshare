@@ -1,0 +1,47 @@
+# docker-compose.yml (Version Corrigée avec Volume Nommé)
+
+# Les 'services' sont les conteneurs que nous allons lancer
+services:
+  # Service pour la base de données MySQL
+  mysql:
+    image: mysql:8.0 # Utilise l'image officielle MySQL version 8.0
+    container_name: taskmanager-mysql # Nom facile à identifier pour le conteneur
+    # Variables d'environnement pour configurer MySQL au démarrage
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword # Mot de passe pour l'utilisateur root MySQL (admin)
+      MYSQL_DATABASE: taskmanager      # Nom de la base de données à créer automatiquement
+      MYSQL_USER: user                 # Nom de l'utilisateur applicatif à créer
+      MYSQL_PASSWORD: password          # Mot de passe pour l'utilisateur applicatif
+    # Mappage des ports : rend le port 3306 du conteneur accessible sur le port 3306 de votre machine
+    ports:
+      - "3306:3306"
+    # Gestion des volumes (persistance des données)
+    volumes:
+      # *** MODIFICATION ICI ***
+      # Lier le dossier de données MySQL interne au conteneur (/var/lib/mysql)
+      # à un volume nommé 'mysql-data' géré par Docker.
+      # Syntaxe : nom_du_volume:chemin_dans_le_conteneur
+      - mysql-data:/var/lib/mysql
+
+  # Service pour l'interface web PHPMyAdmin (accès facile à la base de données)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin # Utilise l'image officielle phpMyAdmin
+    container_name: taskmanager-phpmyadmin # Nom du conteneur (correction typo: taskmannager -> taskmanager)
+    # Variables d'environnement pour configurer PHPMyAdmin
+    environment:
+      PMA_HOST: mysql     # Indique à PHPMyAdmin de se connecter au service nommé 'mysql'
+      PMA_PORT: 3306     # Port MySQL à utiliser (interne au réseau Docker)
+    # Mappage des ports : rend le port 80 du conteneur accessible sur le port 8080 de votre machine
+    ports:
+      - "8080:80"        # Accès via http://localhost:8080 dans votre navigateur
+    # Dépendance : S'assurer que le service 'mysql' est démarré avant phpMyAdmin
+    depends_on:
+      - mysql
+
+# --- Section 'volumes:' à la racine du fichier ---
+# Déclare les volumes nommés qui seront utilisés par les services.
+# Docker gérera automatiquement la création et le stockage de ce volume.
+volumes:
+  mysql-data: # Nom du volume utilisé par le service 'mysql'
+    # On peut laisser vide pour utiliser le driver par défaut ('local')
+    # ou spécifier des options si nécessaire (ex: driver: local)
